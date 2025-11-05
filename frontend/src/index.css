@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+/* Custom utilities */
+@layer {
+  .line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
+}
+
+/* Smooth transitions */
+* {
+  transition-property: color, background-color, border-color, transform, box-shadow;
+  transition-duration: 200ms;
+  transition-timing-function: ease-in-out;
+}
+
+/* Remove the old root constraints */
+#root {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+}
