@@ -1,47 +1,38 @@
 //index.js
-import express, { request, response } from "express";
-import { PORT,mongoDBURL } from "./config.js";
-import mongoose, { get } from "mongoose";
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
+import dotenv from "dotenv";
 import { Book } from "./models/bookmodel.js";
-import booksRoute from './routes/booksRoute.js';
-import cors from 'cors';
+import booksRoute from "./routes/booksRoute.js";
+import { PORT, mongoDBURL } from "./config.js";
+
+dotenv.config();
 
 const app = express();
-
 app.use(express.json());
-
-//middleware for handling cors
 app.use(cors());
 
-//app.use(
-//    cors({
-//        origin: 'http://localhost:3000',
-//        methods: ['GET', 'POST','PUT', 'DELETE' ],
-//        allowedHeaders: ['Content-Type'],
-//    }
-//
-  //  )
-//);
-
-app.get('/',(request,response)=> {
-    console.log(request)
-    return response.status(234).send('Welcome Anas');
+// Default route
+app.get("/", (req, res) => {
+  res.status(200).send("Welcome Anas");
 });
 
-app.use('/books',booksRoute);
+// Books route
+app.use("/books", booksRoute);
 
+// Connect to MongoDB
 mongoose
-    .connect(mongoDBURL)
-    .then(()=> {
-        console.log('app connected to database');
+  .connect(mongoDBURL)
+  .then(() => console.log("✅ Connected to MongoDB"))
+  .catch((error) => console.error("❌ MongoDB connection error:", error));
 
-        
-        app.listen(PORT, () => {
-    console.log(`App is listening to port: ${PORT}`);
+// ✅ Start the server locally only (not on Vercel)
+if (process.env.NODE_ENV !== "production") {
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running locally on port ${PORT}`);
+  });
+}
 
-});
-
-})
-    .catch((error)=>{
-        console.log(error);
-});
+// ✅ Export the app for Vercel to handle
+export default app;
