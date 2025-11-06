@@ -58,7 +58,7 @@ pnpm-debug.log*
 # Environment and secret files
 .env
 **/.env
-backend/config.js
+
 
 # OS files
 .DS_Store
