@@ -71,3 +71,6 @@ Thumbs.db
 # Vite and Tailwind cache
 frontend/.vite/
 frontend/.eslintcache
+# Secret environment files
+Backend/.env
+.env

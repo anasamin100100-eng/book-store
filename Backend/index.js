@@ -1,3 +1,4 @@
+//index.js
 import express, { request, response } from "express";
 import { PORT,mongoDBURL } from "./config.js";
 import mongoose, { get } from "mongoose";
